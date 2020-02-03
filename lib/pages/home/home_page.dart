@@ -76,6 +76,20 @@ class HomePageState extends State<HomePage>{
               ),
             ),
           ),
+          SizedBox(
+          width: 90,
+          height: 34,
+          child: FlatButton(
+            onPressed: () {
+              //TODO: CHAMA PAGINA COM MAIS DETALHES
+            },
+            child: Text(
+              'Média',
+              style: TextStyle(
+                  fontSize: 12, color: Colors.white),
+            )
+            )
+          ),
           Align(
             alignment: Alignment.topCenter, 
             child:Padding(
@@ -259,63 +273,85 @@ class HomePageState extends State<HomePage>{
   int touchedIndex;
 
   Widget _construirSleepQualityGraph() {
-    return Container(
-      margin: EdgeInsets.only(left: 10, right: 10),
-      child:AspectRatio(
-        aspectRatio: 1,
-        child: Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-          color: const Color(0xff232d37),
-          // color: Colors.white,
-          child: Stack(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(18),
-                  ),
-                  border: Border.all(color: Colors.white)
-                ),
-                child:Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Text(
-                        'Qualidade do sono',
-                        style: TextStyle(
-                            color: Colors.grey, fontSize: 24, fontWeight: FontWeight.bold),
+    return Stack(
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.only(left: 10, right: 10),
+          child:AspectRatio(
+            aspectRatio: 1,
+            child: Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+              color: const Color(0xff232d37),
+              // color: Colors.white,
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(18),
                       ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        'Aproximado',
-                        style: TextStyle(
-                            color: Colors.grey, fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: BarChart(
-                            mainBarData(),
-                            swapAnimationDuration: Duration(milliseconds: 250),
+                      border: Border.all(color: Colors.white)
+                    ),
+                    child:Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          Text(
+                            'Qualidade do sono',
+                            style: TextStyle(
+                                color: Colors.grey, fontSize: 24, fontWeight: FontWeight.bold),
                           ),
-                        ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            'Aproximado',
+                            style: TextStyle(
+                                color: Colors.grey, fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: BarChart(
+                                mainBarData(),
+                                swapAnimationDuration: Duration(milliseconds: 250),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
         ),
-      )
+        Positioned(
+          right:10,
+          top: 5,
+          child:SizedBox(
+          width: 90,
+          height: 34,
+          child: FlatButton(
+            onPressed: () {
+              //TODO: CHAMA PAGINA COM MAIS DETALHES
+            },
+            child: Text(
+              'Média',
+              style: TextStyle(
+                  fontSize: 12, color: Colors.white),
+            )
+            )
+          )
+        )
+      ]
     );
   }
 
