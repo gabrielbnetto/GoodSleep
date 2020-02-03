@@ -1,5 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:good_sleep/pages/detalhes/quality_sleep_page.dart';
+import 'package:good_sleep/pages/detalhes/time_sleep_page.dart';
 import 'package:good_sleep/shared/good_sleep_icons.dart';
 
 class HomePage extends StatefulWidget {
@@ -76,18 +78,21 @@ class HomePageState extends State<HomePage>{
               ),
             ),
           ),
-          SizedBox(
-          width: 90,
-          height: 34,
-          child: FlatButton(
-            onPressed: () {
-              //TODO: CHAMA PAGINA COM MAIS DETALHES
-            },
-            child: Text(
-              'Média',
-              style: TextStyle(
-                  fontSize: 12, color: Colors.white),
-            )
+          Positioned(
+            left: -5,
+            child:SizedBox(
+            width: 90,
+            height: 34,
+            child: FlatButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => TimeSleepPage()));
+              },
+              child: Text(
+                'Média',
+                style: TextStyle(
+                    fontSize: 12, color: Colors.white),
+              )
+              )
             )
           ),
           Align(
@@ -341,7 +346,7 @@ class HomePageState extends State<HomePage>{
           height: 34,
           child: FlatButton(
             onPressed: () {
-              //TODO: CHAMA PAGINA COM MAIS DETALHES
+              Navigator.push(context, MaterialPageRoute(builder: (context) => QualitySleepPage()));
             },
             child: Text(
               'Média',
