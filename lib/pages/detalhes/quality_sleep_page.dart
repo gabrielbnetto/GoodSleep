@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:good_sleep/shared/good_sleep_icons.dart';
 
+
 class QualitySleepPage extends StatelessWidget {
 
   @override
@@ -9,6 +10,7 @@ class QualitySleepPage extends StatelessWidget {
        appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center, 
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
               padding: EdgeInsets.only(right: 10),
@@ -27,6 +29,6 @@ class QualitySleepPage extends StatelessWidget {
   }
 
   _construirDetalheChart() {
-
+    return Container();
   }
 }

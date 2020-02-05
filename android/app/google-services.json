@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "78789128862",
+    "firebase_url": "https://goodsleep-28c5b.firebaseio.com",
+    "project_id": "goodsleep-28c5b",
+    "storage_bucket": "goodsleep-28c5b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78789128862:android:545af7c50ca1015349418f",
+        "android_client_info": {
+          "package_name": "com.example.good_sleep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78789128862-a8qu3akcc4mdht3c9222p254ecl696rf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.good_sleep",
+            "certificate_hash": "b20447e681062d56f1a6d1ac11f4adc030d06ea6"
+          }
+        },
+        {
+          "client_id": "78789128862-8ec8pkhq2pbkb2978ocsc93ht0q5td82.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAu-YL-30MFSruFJppVw1_W1ZqqipbhnDY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "78789128862-8ec8pkhq2pbkb2978ocsc93ht0q5td82.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

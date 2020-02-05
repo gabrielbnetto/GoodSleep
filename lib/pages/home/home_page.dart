@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:good_sleep/pages/detalhes/quality_sleep_page.dart';
 import 'package:good_sleep/pages/detalhes/time_sleep_page.dart';
+import 'package:good_sleep/pages/login/sign_in.dart';
 import 'package:good_sleep/shared/good_sleep_icons.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,6 +31,17 @@ class HomePageState extends State<HomePage>{
           ]
         ),
         backgroundColor: Color(0xff13172b),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            tooltip: 'Sair',
+            color: Colors.white,
+            onPressed: () {
+              signOutGoogle();
+              Navigator.pushReplacementNamed(context, '/information');
+            }
+          )
+        ]
         // elevation: 0.0, 
       ),
       body: _construirHome(),
@@ -52,7 +64,7 @@ class HomePageState extends State<HomePage>{
     return Container(
       padding: EdgeInsets.only(top: 15),
       alignment: Alignment.center,
-      child: Text('Bem vindo Malcon!', style: TextStyle(color: Colors.white, fontSize: 18))
+      child: Text('Bem vindo $name!', style: TextStyle(color: Colors.white, fontSize: 18))
     );
   }
 
@@ -71,7 +83,7 @@ class HomePageState extends State<HomePage>{
                   border: Border.all(color: Colors.white, width: 1),
                   color: const Color(0xff232d37)),
               child: Padding(
-                padding: const EdgeInsets.only(right: 22.0, left: 8.0, top: 24, bottom: 12),
+                padding: const EdgeInsets.only(right: 30.0, left: 8.0, top: 24, bottom: 12),
                 child: LineChart(
                   mainData()
                 ),
@@ -88,7 +100,7 @@ class HomePageState extends State<HomePage>{
                 Navigator.push(context, MaterialPageRoute(builder: (context) => TimeSleepPage()));
               },
               child: Text(
-                'Média',
+                'Mais',
                 style: TextStyle(
                     fontSize: 12, color: Colors.white),
               )
@@ -99,7 +111,7 @@ class HomePageState extends State<HomePage>{
             alignment: Alignment.topCenter, 
             child:Padding(
               padding: EdgeInsets.only(top: 5),
-              child:Text('Padrão do sono', 
+              child:Text('Dormindo', 
                 style: TextStyle(color: Colors.grey, fontSize: 15)
               )
             )
@@ -142,19 +154,19 @@ class HomePageState extends State<HomePage>{
           getTitles: (value) {
             switch (value.toInt()) {
               case 0:
-                return 'Seg';
+                return '03/02\n(Seg)';
               case 1:
-                return 'Ter';
+                return '04/02\n(Ter)';
               case 2:
-                return 'Qua';
+                return '05/02\n(Qua)';
               case 3:
-                return 'Qui';
+                return '06/02\n(Qui)';
               case 4:
-                return 'Sex';
+                return '07/02\n(Sex)';
               case 5:
-                return 'Sab';
+                return '08/02\n(Sab)';
               case 6:
-                return 'Dom';
+                return '09/02\n(Dom)';
             }
             return '';
           },
@@ -349,7 +361,7 @@ class HomePageState extends State<HomePage>{
               Navigator.push(context, MaterialPageRoute(builder: (context) => QualitySleepPage()));
             },
             child: Text(
-              'Média',
+              'Mais',
               style: TextStyle(
                   fontSize: 12, color: Colors.white),
             )
@@ -492,5 +504,3 @@ class HomePageState extends State<HomePage>{
   }
   
 }
-
-
