@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "78789128862-cu26iib0uc83go8jm0f6togbooiu69av.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.good_sleep",
+            "certificate_hash": "c54d9e78e0c84d78d0f2de23543d58778e3fb45d"
+          }
+        },
+        {
           "client_id": "78789128862-a8qu3akcc4mdht3c9222p254ecl696rf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -38,6 +46,13 @@
             {
               "client_id": "78789128862-8ec8pkhq2pbkb2978ocsc93ht0q5td82.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "78789128862-3l6npff3jb36jlh3vabnlkvjd90gi2ik.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.goodSleep"
+              }
             }
           ]
         }

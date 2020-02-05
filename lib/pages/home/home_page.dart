@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:good_sleep/pages/detalhes/quality_sleep_page.dart';
 import 'package:good_sleep/pages/detalhes/time_sleep_page.dart';
+import 'package:good_sleep/pages/information/information_page.dart';
 import 'package:good_sleep/pages/login/sign_in.dart';
 import 'package:good_sleep/shared/good_sleep_icons.dart';
 
@@ -20,7 +21,7 @@ class HomePageState extends State<HomePage>{
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center, 
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
               padding: EdgeInsets.only(right: 10),
@@ -37,8 +38,7 @@ class HomePageState extends State<HomePage>{
             tooltip: 'Sair',
             color: Colors.white,
             onPressed: () {
-              signOutGoogle();
-              Navigator.pushReplacementNamed(context, '/information');
+              _errorDialog(context);
             }
           )
         ]
@@ -46,6 +46,45 @@ class HomePageState extends State<HomePage>{
       ),
       body: _construirHome(),
       backgroundColor: Color(0xff13172b),
+    );
+  }
+
+  void _errorDialog(context){
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(20.0)) ), 
+          title: Center(child:Text("Sair")),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Center(child:Text("Tem certeza que deseja sair?", textAlign: TextAlign.center,)),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  RaisedButton(child:Text('Continuar'), onPressed: (){
+                    Navigator.of(context).pop();
+                  }),
+                  RaisedButton(child:Text('Sair'), onPressed: (){
+                    signOutGoogle();
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context){
+                          return InformationPage();
+                        }
+                      ),
+                      ModalRoute.withName('/information')
+                    );
+                  }),
+                ]
+              )
+            ]
+          )
+        );
+      },
     );
   }
 
@@ -239,7 +278,7 @@ class HomePageState extends State<HomePage>{
 
   Widget _construirCardHearth(hr) {
     return  Container(
-      width: 165,
+      width: 150,
       height: 150,
       decoration: BoxDecoration(
         color: Color(0xff232d37),
@@ -248,7 +287,7 @@ class HomePageState extends State<HomePage>{
         ),
         border: Border.all(color: Colors.white, width: 1)
       ),
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.only(left: 15),
       padding: EdgeInsets.only(top: 5),
       child: Column(
         children: <Widget>[
@@ -263,7 +302,7 @@ class HomePageState extends State<HomePage>{
 
   Widget _construirCard(ts) {
     return  Container(
-      width: 165,
+      width: 150,
       height: 150,
       decoration: BoxDecoration(
         color: Color(0xff232d37),
@@ -272,7 +311,7 @@ class HomePageState extends State<HomePage>{
         ),
         border: Border.all(color: Colors.white, width: 1)
       ),
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.only(top:20, right: 15, bottom: 20),
       padding: EdgeInsets.only(top: 10),
       child: Column(
         children: <Widget>[

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>78789128862-3l6npff3jb36jlh3vabnlkvjd90gi2ik.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.78789128862-3l6npff3jb36jlh3vabnlkvjd90gi2ik</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>78789128862-a8qu3akcc4mdht3c9222p254ecl696rf.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBvvEDgKIHzAd9uZABcsetV7yg3BPFuERw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>78789128862</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.goodSleep</string>
+	<key>PROJECT_ID</key>
+	<string>goodsleep-28c5b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>goodsleep-28c5b.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:78789128862:ios:8dbaccee3a2e82c449418f</string>
+	<key>DATABASE_URL</key>
+	<string>https://goodsleep-28c5b.firebaseio.com</string>
+</dict>
+</plist>

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:good_sleep/pages/home/home_page.dart';
 import 'package:good_sleep/pages/login/sign_in.dart';
 import 'package:good_sleep/shared/good_sleep_icons.dart';
@@ -16,7 +17,6 @@ class InformationPage extends StatelessWidget {
               padding: EdgeInsets.only(right: 10),
               child: Icon(GoodSleep.bed, size:30, color: Colors.white) 
             ),
-            
             Text('Good Sleep', style: TextStyle(fontSize: 25, color: Colors.white))
           ]
         ),
@@ -54,7 +54,7 @@ class InformationPage extends StatelessWidget {
                   children: <Widget>[
                     Icon(Icons.check_box, color: Colors.orange),
                     SizedBox(width: 10),
-                    Text('O Good Sleep serve para ajudar você a medir a \nqualidade do seu sono e monitorar todas as \npossíveis variáveis.', style: TextStyle(fontSize: 15, color: Colors.white))
+                    Text('O Good Sleep serve para ajudar você a \nmedir a qualidade do seu sono e monitorar \ntodas as possíveis variáveis.', style: TextStyle(fontSize: 15, color: Colors.white))
                   ]
                 )
               ),
@@ -64,7 +64,7 @@ class InformationPage extends StatelessWidget {
                   children: <Widget>[
                     Icon(Icons.check_box, color: Colors.orange),
                     SizedBox(width: 10),
-                    Text('Caso esteja com algum problema relacionado \nao seu sono, não deixe de procurar um \nprofissional para te ajudar!', style: TextStyle(fontSize: 15, color: Colors.white))
+                    Text('Caso esteja com algum problema \nrelacionado ao seu sono, não deixe de \nprocurar um profissional para te ajudar!', style: TextStyle(fontSize: 15, color: Colors.white))
                   ]
                 )
               ),
@@ -117,18 +117,64 @@ class InformationPageButton extends StatelessWidget {
           borderRadius: new BorderRadius.circular(18.0),
         ),
         onPressed: () => {
-          signInWithGoogle().whenComplete(() {
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-              builder: (context) {
-                return HomePage();
-              },
-            ),
-            ModalRoute.withName('/home')
-          );
+          _openLoadingDialog(context, true),
+          signInWithGoogle().then((value) {
+          if(value != null){
+            _openLoadingDialog(context, false);
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (context) {
+                  return HomePage();
+                },
+              ),
+              ModalRoute.withName('/home')
+            );
+          }else{
+            _openLoadingDialog(context, false);
+            _errorDialog(context);
+          }
         })
         },
       )
     );
   }
+
+  void _errorDialog(context){
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder( borderRadius: BorderRadius.all(Radius.circular(20.0)) ), 
+          title: Center(child:Text("Erro ao entrar")),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Center(child:Text("Ocorreu um erro ao tentar \nentrar com o Google, por favor, \ntente novamente!", textAlign: TextAlign.center,)),
+              SizedBox(height: 10),
+              RaisedButton(child:Text('OK!'), onPressed: (){Navigator.of(context).pop();})
+            ]
+          )
+        );
+      },
+    );
+  }
+  
+  void _openLoadingDialog(BuildContext context, bool loading) { 
+    if(loading == true){
+      showDialog( 
+        barrierDismissible: false, 
+        context: context, 
+        builder:(_) => Material( 
+          type: MaterialType.transparency,
+          child: Center(child:
+            SpinKitFadingCircle(color: Colors.blue, size: 50.0),
+          )
+        ) 
+      );
+    }else{
+      Navigator.pop(context);
+    }
+  }
+
 }

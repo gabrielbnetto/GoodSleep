@@ -40,7 +40,6 @@ class TimeSleepState extends State<TimeSleepPage> {
     return ListView(
       children: <Widget>[
         _construirSleepDaysGraph(),
-        _construirRowCards(),
         _construirChartWake()
       ]
     );
@@ -185,64 +184,6 @@ class TimeSleepState extends State<TimeSleepPage> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _construirRowCards() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        _construirCardWakeUpHours(150),
-        _construirCard(8.3)
-      ]
-    );
-  }
-
-  Widget _construirCardWakeUpHours(hr) {
-    return  Container(
-      width: 165,
-      height: 150,
-      decoration: BoxDecoration(
-        color: Color(0xff232d37),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(18),
-        ),
-        border: Border.all(color: Colors.white, width: 1)
-      ),
-      margin: EdgeInsets.all(20),
-      padding: EdgeInsets.only(top: 5),
-      child: Column(
-        children: <Widget>[
-          Icon(GoodSleep.heartbeat, size: 90, color: Colors.redAccent),
-          Text('$hr Tempo acordado', style: TextStyle(color: Colors.white)),
-          Text('Média do tempo que \npassou acordado',style: TextStyle(color: Colors.grey, fontSize: 12), textAlign: TextAlign.center)
-        ]
-      )
-      // )
-    );
-  }
-
-  Widget _construirCard(ts) {
-    return  Container(
-      width: 165,
-      height: 150,
-      decoration: BoxDecoration(
-        color: Color(0xff232d37),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(18),
-        ),
-        border: Border.all(color: Colors.white, width: 1)
-      ),
-      margin: EdgeInsets.all(20),
-      padding: EdgeInsets.only(top: 10),
-      child: Column(
-        children: <Widget>[
-          Icon(GoodSleep.moon_inv, size: 90, color: Colors.white),
-          Text('$ts Avg Sleep', style: TextStyle(color: Colors.white)),
-          Text('Média de horas de sono',style: TextStyle(color: Colors.grey, fontSize: 13), textAlign: TextAlign.center)
-        ]
-      )
-      // )
     );
   }
 
