@@ -1,9 +1,10 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:good_sleep/pages/detalhes/quality_sleep_page.dart';
-import 'package:good_sleep/pages/detalhes/time_sleep_page.dart';
 import 'package:good_sleep/pages/information/information_page.dart';
 import 'package:good_sleep/pages/login/sign_in.dart';
+import 'package:good_sleep/shared/charts/time_sleep_chart.dart';
 import 'package:good_sleep/shared/good_sleep_icons.dart';
 
 class HomePage extends StatefulWidget {
@@ -38,7 +39,7 @@ class HomePageState extends State<HomePage>{
             tooltip: 'Sair',
             color: Colors.white,
             onPressed: () {
-              _errorDialog(context);
+              _logoutDialog(context);
             }
           )
         ]
@@ -49,7 +50,7 @@ class HomePageState extends State<HomePage>{
     );
   }
 
-  void _errorDialog(context){
+  void _logoutDialog(context){
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -92,7 +93,7 @@ class HomePageState extends State<HomePage>{
     return ListView(
         children: <Widget>[
           _construirWelcomeText(),
-          _construirSleepDaysGraph(),
+          makeChartHome(context),
           _construirRowCards(),
           _construirSleepQualityGraph()
         ]
@@ -101,168 +102,23 @@ class HomePageState extends State<HomePage>{
 
   Widget _construirWelcomeText() {
     return Container(
-      padding: EdgeInsets.only(top: 15),
+      padding: EdgeInsets.only(top: 15, left: 35),
       alignment: Alignment.center,
-      child: Text('Bem vindo $name!', style: TextStyle(color: Colors.white, fontSize: 18))
-    );
-  }
-
-  Widget _construirSleepDaysGraph() {
-    return Container(
-      margin: EdgeInsets.only(left: 10, right: 10, top: 15),
-      child:Stack(
-        children: <Widget>[
-          AspectRatio(
-            aspectRatio: 1.70,
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(18),
-                  ),
-                  border: Border.all(color: Colors.white, width: 1),
-                  color: const Color(0xff232d37)),
-              child: Padding(
-                padding: const EdgeInsets.only(right: 30.0, left: 8.0, top: 24, bottom: 12),
-                child: LineChart(
-                  mainData()
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: -5,
-            child:SizedBox(
-            width: 90,
-            height: 34,
-            child: FlatButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => TimeSleepPage()));
-              },
-              child: Text(
-                'Mais',
-                style: TextStyle(
-                    fontSize: 12, color: Colors.white),
-              )
-              )
-            )
-          ),
-          Align(
-            alignment: Alignment.topCenter, 
-            child:Padding(
-              padding: EdgeInsets.only(top: 5),
-              child:Text('Dormindo', 
-                style: TextStyle(color: Colors.grey, fontSize: 15)
-              )
-            )
-          )
+      child: SizedBox(
+      width: 250.0,
+      child: TypewriterAnimatedTextKit(
+        text: [
+          'Bem vindo $name!',
         ],
-      )
-    );
-  }
-
-  LineChartData mainData() {
-    List<Color> gradientColors = [
-      const Color(0xff23b6e6),
-      const Color(0xff02d39a),
-    ];
-    
-    return LineChartData(
-      gridData: FlGridData(
-        show: true,
-        drawVerticalLine: true,
-        getDrawingHorizontalLine: (value) {
-          return const FlLine(
-            color: Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
-        getDrawingVerticalLine: (value) {
-          return const FlLine(
-            color: Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
+        textStyle: TextStyle(
+            fontSize: 18.0,
+            fontFamily: "Agne",
+            color: Colors.white
+        ),
+        textAlign: TextAlign.start,
+        alignment: AlignmentDirectional.topStart // or Alignment.topLeft
       ),
-      titlesData: FlTitlesData(
-        show: true,
-        bottomTitles: SideTitles(
-          showTitles: true,
-          reservedSize: 22,
-          textStyle:
-              TextStyle(color: const Color(0xff68737d), fontWeight: FontWeight.bold, fontSize: 14),
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 0:
-                return '03/02\n(Seg)';
-              case 1:
-                return '04/02\n(Ter)';
-              case 2:
-                return '05/02\n(Qua)';
-              case 3:
-                return '06/02\n(Qui)';
-              case 4:
-                return '07/02\n(Sex)';
-              case 5:
-                return '08/02\n(Sab)';
-              case 6:
-                return '09/02\n(Dom)';
-            }
-            return '';
-          },
-          margin: 8,
-        ),
-        leftTitles: SideTitles(
-          showTitles: true,
-          textStyle: TextStyle(
-            color: const Color(0xff67727d),
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
-          ),
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 1:
-                return '5h';
-              case 3:
-                return '7h';
-              case 5:
-                return '9h';
-            }
-            return '';
-          },
-          reservedSize: 28,
-          margin: 10,
-        ),
-      ),
-      borderData:
-          FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
-      minX: 0,
-      maxX: 6,
-      minY: 0,
-      maxY: 9,
-      lineBarsData: [
-        LineChartBarData(
-          spots: const [
-            FlSpot(0, 3),
-            FlSpot(1, 2),
-            FlSpot(2, 5),
-            FlSpot(3, 3),
-            FlSpot(4, 4),
-            FlSpot(5, 3),
-            FlSpot(6, 4)
-          ],
-          isCurved: true,
-          colors: gradientColors,
-          barWidth: 5,
-          isStrokeCapRound: true,
-          dotData: const FlDotData(
-            show: false,
-          ),
-          belowBarData: BarAreaData(
-            show: true,
-            colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
-          ),
-        ),
-      ],
+    )
     );
   }
 

@@ -1,6 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:good_sleep/shared/charts/time_sleep_chart.dart';
 import 'package:good_sleep/shared/good_sleep_icons.dart';
+import 'package:good_sleep/shared/http.dart';
 
 class TimeSleepPage extends StatefulWidget {
   @override
@@ -8,7 +11,6 @@ class TimeSleepPage extends StatefulWidget {
     return new TimeSleepState();
   }
 }
-
 
 class TimeSleepState extends State<TimeSleepPage> {
 
@@ -37,154 +39,32 @@ class TimeSleepState extends State<TimeSleepPage> {
   }
 
   _construirPageDetailChart() {
-    return ListView(
-      children: <Widget>[
-        _construirSleepDaysGraph(),
-        _construirChartWake()
-      ]
+    return FutureBuilder<dynamic>( 
+      future: makeGetRequest(context),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) { 
+        if( snapshot.connectionState == ConnectionState.waiting){ 
+          return Center(child: SpinKitFadingCircle(color: Colors.blue, size: 50.0)); 
+        }else if(snapshot.data == false) {
+          return ListView(
+            children: <Widget>[
+              makeChartWithNoData(),
+              _construirChartWake()
+            ]
+          );
+        }else{
+          return ListView(
+            children: <Widget>[
+              _construirSleepDaysGraph(),
+              _construirChartWake()
+            ]
+          );
+        }
+      }
     );
   }
 
   Widget _construirSleepDaysGraph(){
-      return Container(
-      margin: EdgeInsets.only(left: 10, right: 10, top: 15),
-      child:Stack(
-        children: <Widget>[
-          AspectRatio(
-            aspectRatio: 1.70,
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(18),
-                  ),
-                  border: Border.all(color: Colors.white, width: 1),
-                  color: const Color(0xff232d37)),
-              child: Padding(
-                padding: const EdgeInsets.only(right: 22.0, left: 8.0, top: 24, bottom: 12),
-                child: LineChart(
-                  mainData()
-                ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topCenter, 
-            child:Padding(
-              padding: EdgeInsets.only(top: 5),
-              child:Text('Dormindo', 
-                style: TextStyle(color: Colors.grey, fontSize: 15)
-              )
-            )
-          )
-        ],
-      )
-    );
-  }
-
-  LineChartData mainData() {
-    List<Color> gradientColors = [
-      const Color(0xff23b6e6),
-      const Color(0xff02d39a),
-    ];
-    
-    return LineChartData(
-      gridData: FlGridData(
-        show: true,
-        drawVerticalLine: true,
-        getDrawingHorizontalLine: (value) {
-          return const FlLine(
-            color: Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
-        getDrawingVerticalLine: (value) {
-          return const FlLine(
-            color: Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
-      ),
-      titlesData: FlTitlesData(
-        show: true,
-        bottomTitles: SideTitles(
-          showTitles: true,
-          reservedSize: 22,
-          textStyle:
-              TextStyle(color: const Color(0xff68737d), fontWeight: FontWeight.bold, fontSize: 14),
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 0:
-                return 'Seg';
-              case 1:
-                return 'Ter';
-              case 2:
-                return 'Qua';
-              case 3:
-                return 'Qui';
-              case 4:
-                return 'Sex';
-              case 5:
-                return 'Sab';
-              case 6:
-                return 'Dom';
-            }
-            return '';
-          },
-          margin: 8,
-        ),
-        leftTitles: SideTitles(
-          showTitles: true,
-          textStyle: TextStyle(
-            color: const Color(0xff67727d),
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
-          ),
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 1:
-                return '5h';
-              case 3:
-                return '7h';
-              case 5:
-                return '9h';
-            }
-            return '';
-          },
-          reservedSize: 28,
-          margin: 10,
-        ),
-      ),
-      borderData:
-          FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
-      minX: 0,
-      maxX: 6,
-      minY: 0,
-      maxY: 9,
-      lineBarsData: [
-        LineChartBarData(
-          spots: const [
-            FlSpot(0, 3),
-            FlSpot(1, 2),
-            FlSpot(2, 5),
-            FlSpot(3, 3),
-            FlSpot(4, 4),
-            FlSpot(5, 3),
-            FlSpot(6, 4)
-          ],
-          isCurved: true,
-          colors: gradientColors,
-          barWidth: 5,
-          isStrokeCapRound: true,
-          dotData: const FlDotData(
-            show: false,
-          ),
-          belowBarData: BarAreaData(
-            show: true,
-            colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
-          ),
-        ),
-      ],
-    );
+    return makeChartTimeSleep();
   }
 
   Widget _construirChartWake() {

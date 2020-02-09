@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:good_sleep/pages/home/home_page.dart';
 import 'package:good_sleep/pages/login/sign_in.dart';
 import 'package:good_sleep/shared/good_sleep_icons.dart';
+import 'package:page_transition/page_transition.dart';
 
 class InformationPage extends StatelessWidget {
 
@@ -122,10 +123,9 @@ class InformationPageButton extends StatelessWidget {
           if(value != null){
             _openLoadingDialog(context, false);
             Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                builder: (context) {
-                  return HomePage();
-                },
+              PageTransition(
+                type: PageTransitionType.downToUp, 
+                child:  HomePage()
               ),
               ModalRoute.withName('/home')
             );
